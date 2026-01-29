@@ -2,6 +2,7 @@ import { useState } from "react";
 import useSWRMutation from "swr/mutation";
 import authServices from "../services/authServices";
 import { BiError } from "react-icons/bi";
+import { useNavigate } from "react-router";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ const LoginPage = () => {
     "api/auth/author/login",
     authServices.loginUser,
   );
+  let navigate = useNavigate();
 
   const handleLoginForm = async (event) => {
     event.preventDefault();
@@ -19,8 +21,8 @@ const LoginPage = () => {
     };
     try {
       const apiResponse = await trigger(formData);
-      console.log(apiResponse);
       if (apiResponse) {
+        navigate("/posts");
       }
     } catch (err) {
       console.error(err, error);
