@@ -3,6 +3,7 @@ import useSWRMutation from "swr/mutation";
 import authServices from "../services/authServices";
 import { BiError } from "react-icons/bi";
 import { useNavigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ const LoginPage = () => {
     authServices.loginUser,
   );
   let navigate = useNavigate();
+  const { setUser, setToken } = useAuth();
 
   const handleLoginForm = async (event) => {
     event.preventDefault();
@@ -22,6 +24,8 @@ const LoginPage = () => {
     try {
       const apiResponse = await trigger(formData);
       if (apiResponse) {
+        setUser(apiResponse.user);
+        setToken(apiResponse.accessToken);
         navigate("/posts");
       }
     } catch (err) {
@@ -89,7 +93,7 @@ const LoginPage = () => {
           Sign in
         </button>
         <p className="text-center text-sm text-neutral-700">
-          Author access only. Regular users should use the main site login.
+          Author access only. Regular users should use the main site to login.
         </p>
 
         <p className="text-center">
