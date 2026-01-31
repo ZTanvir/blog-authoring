@@ -12,6 +12,7 @@ createRoot(document.getElementById("root")).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />} />
+          <Route path="/write" element={<App />} />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
