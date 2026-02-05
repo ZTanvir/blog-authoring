@@ -6,11 +6,10 @@ import { useState } from "react";
 const Stories = () => {
   const { user } = useAuth();
   const [postStatus, setPostStatus] = useState("all");
-  const { data, error, isLoading, mutate } = useSWR(
+  const { data } = useSWR(
     `/api/posts/user/${user?.id}?status=${postStatus}`,
     postService.getPosts,
   );
-  console.log(data, user);
 
   return (
     <div>
