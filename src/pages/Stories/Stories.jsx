@@ -61,7 +61,7 @@ const Stories = () => {
                       }
                     }}
                     onClick={(e) => {}}
-                    className={`rounded border ${post.published ? " bg-green-200 hover:bg-red-200" : "bg-red-200 hover:bg-green-200"} px-3 py-2 text-gray-800 shadow-lg hover:cursor-pointer`}
+                    className={`rounded border ${post.published ? " bg-green-200 hover:bg-red-200" : "bg-red-200 hover:bg-green-200"} w-30 px-3 py-2 text-gray-800 shadow-lg transition duration-200 hover:cursor-pointer`}
                   >
                     {post.published ? "publish" : "unpublish"}
                   </button>
