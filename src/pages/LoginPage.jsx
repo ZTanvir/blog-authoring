@@ -26,7 +26,7 @@ const LoginPage = () => {
       if (apiResponse) {
         setUser(apiResponse.user);
         setToken(apiResponse.accessToken);
-        navigate("/posts");
+        navigate("/stories");
       }
     } catch (err) {
       console.error(err, error);
