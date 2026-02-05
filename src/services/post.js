@@ -5,4 +5,9 @@ const getPosts = async (url) => {
   return response.data;
 };
 
-export default { getPosts };
+const editPosts = async (url, { arg }) => {
+  const response = await axiosApi.put(url, arg);
+  return response.data;
+};
+
+export default { getPosts, editPosts };
