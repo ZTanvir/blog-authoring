@@ -1,47 +1,7 @@
 import useSWR from "swr";
-import postService from "../../services/post";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
-import useSWRMutation from "swr/mutation";
 import { Link } from "react-router";
-
-const StoryDetails = ({ post, mutatePosts }) => {
-  const { trigger } = useSWRMutation(
-    `/api/posts/${post.id}`,
-    postService.editPosts,
-  );
-
-  return (
-    <div className="mb-2" key={post.id}>
-      <span className="mr-2">{post.title}</span>
-      <button
-        onMouseEnter={(e) => {
-          if (post.published) {
-            e.target.textContent = "unpublish";
-          } else {
-            e.target.textContent = "publish";
-          }
-        }}
-        onMouseLeave={(e) => {
-          if (post.published) {
-            e.target.textContent = "publish";
-          } else {
-            e.target.textContent = "unpublish";
-          }
-        }}
-        onClick={async () => {
-          const res = await trigger({ ...post, published: !post.published });
-          if (res) {
-            mutatePosts();
-          }
-        }}
-        className={`rounded border ${post.published ? " bg-green-200 hover:bg-red-200" : "bg-red-200 hover:bg-green-200"} w-30 px-3 py-2 text-gray-800 shadow-lg transition duration-200 hover:cursor-pointer`}
-      >
-        {post.published ? "publish" : "unpublish"}
-      </button>
-    </div>
-  );
-};
 
 const Stories = () => {
   const { user } = useAuth();
@@ -56,7 +16,7 @@ const Stories = () => {
       <h1 className="text-3xl sm:text-5xl">Hello, {user?.username}</h1>
       <p className="py-2 text-xl">Here are your stories</p>
 
-      <div className="mt-6 flex space-x-2 text-2xl text-gray-700">
+      <div className="mt- flex space-x-2 text-2xl text-gray-700">
         <button
           className={`border-b-2 transition-colors duration-200 hover:cursor-pointer ${postStatus === "all" ? "border-b-gray-600" : "border-b-transparent"}`}
           onClick={() => setPostStatus("all")}

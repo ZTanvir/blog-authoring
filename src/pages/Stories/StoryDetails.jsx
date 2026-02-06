@@ -1,0 +1,42 @@
+import useSWRMutation from "swr/mutation";
+import postService from "../../services/post";
+
+const StoryDetails = ({ post, mutatePosts }) => {
+  const { trigger } = useSWRMutation(
+    `/api/posts/${post.id}`,
+    postService.editPosts,
+  );
+
+  return (
+    <div className="mb-2" key={post.id}>
+      <span className="mr-2">{post.title}</span>
+      <button
+        onMouseEnter={(e) => {
+          if (post.published) {
+            e.target.textContent = "unpublish";
+          } else {
+            e.target.textContent = "publish";
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (post.published) {
+            e.target.textContent = "publish";
+          } else {
+            e.target.textContent = "unpublish";
+          }
+        }}
+        onClick={async () => {
+          const res = await trigger({ ...post, published: !post.published });
+          if (res) {
+            mutatePosts();
+          }
+        }}
+        className={`rounded border ${post.published ? " bg-green-200 hover:bg-red-200" : "bg-red-200 hover:bg-green-200"} w-30 px-3 py-2 text-gray-800 shadow-lg transition duration-200 hover:cursor-pointer`}
+      >
+        {post.published ? "publish" : "unpublish"}
+      </button>
+    </div>
+  );
+};
+
+export default StoryDetails;
