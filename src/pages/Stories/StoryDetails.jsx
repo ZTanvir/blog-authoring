@@ -1,6 +1,5 @@
 import useSWRMutation from "swr/mutation";
 import postService from "../../services/post";
-
 const StoryDetails = ({ post, mutatePosts }) => {
   const { trigger } = useSWRMutation(
     `/api/posts/${post.id}`,

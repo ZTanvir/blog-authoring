@@ -1,7 +1,9 @@
 import useSWR from "swr";
+import postService from "../../services/post";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
 import { Link } from "react-router";
+import StoryDetails from "./StoryDetails";
 
 const Stories = () => {
   const { user } = useAuth();
