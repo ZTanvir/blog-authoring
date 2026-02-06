@@ -5,6 +5,8 @@ import blogLogo from "../assets/images/blogging.png";
 import authServices from "../services/authServices";
 import { useNavigate } from "react-router";
 import { IoIosArrowDown } from "react-icons/io";
+import { LuPenLine } from "react-icons/lu";
+
 import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
@@ -59,10 +61,10 @@ const Navbar = () => {
                 <NavLink
                   to="/write"
                   className={({ isActive }) =>
-                    isActive ? "text-sky-400" : "text-gray-300"
+                    `flex items-center gap-1 ${isActive ? "text-sky-400" : "text-gray-300"}`
                   }
                 >
-                  Write post
+                  <LuPenLine /> write
                 </NavLink>
 
                 <div className="group relative hover:cursor-pointer">
@@ -110,10 +112,10 @@ const Navbar = () => {
                   to="/write"
                   onClick={() => setIsMobile(false)}
                   className={({ isActive }) =>
-                    `pt-4 hover:cursor-pointer ${isActive ? "text-sky-400" : "text-gray-300"}`
+                    `flex items-center gap-1 pt-4 hover:cursor-pointer ${isActive ? "text-sky-400" : "text-gray-300"}`
                   }
                 >
-                  Write post
+                  <LuPenLine /> write
                 </NavLink>
 
                 <div className="text-gray-300">
