@@ -7,6 +7,7 @@ import AuthContextProvider from "./contexts/AuthContextProvider.jsx";
 import App from "./App.jsx";
 import Stories from "./pages/Stories/Stories.jsx";
 import BlogLayout from "./layouts/BlogLayout.jsx";
+import WriteStories from "./pages/WriteStories/write-stories.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -15,7 +16,7 @@ createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route element={<BlogLayout />}>
-            <Route path="/write" element={<App />} />
+            <Route path="/write" element={<WriteStories />} />
             <Route path="/stories" element={<Stories />} />
           </Route>
         </Routes>
