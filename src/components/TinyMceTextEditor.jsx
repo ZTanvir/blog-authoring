@@ -5,7 +5,7 @@ const TinyMceTextEditor = ({ editorRef }) => {
     <Editor
       apiKey={import.meta.env.VITE_TINY_MCE_TEXT_EDITOR}
       onInit={(evt, editor) => (editorRef.current = editor)}
-      initialValue="What do you want to talk about?"
+      initialValue=""
       init={{
         height: 500,
         menubar: false,

@@ -11,8 +11,15 @@ const editPosts = async (url, { arg }) => {
 };
 
 const createPosts = async (url, { arg }) => {
-  const response = await axiosApi.post(url, arg);
-  return response.data;
+  try {
+    const response = await axiosApi.post(url, arg);
+    return response.data;
+  } catch (error) {
+    if (error?.response?.data) {
+      throw error.response.data;
+    }
+    throw error;
+  }
 };
 
 export default { getPosts, editPosts, createPosts };

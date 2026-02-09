@@ -2,12 +2,14 @@ import { useRef, useState } from "react";
 import TinyMceTextEditor from "../../components/TinyMceTextEditor";
 import useSWRMutation from "swr/mutation";
 import postService from "../../services/post";
+import helperFunction from "../../utils/helperFunction";
 
 const WriteStories = () => {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
   const { trigger, isMutating } = useSWRMutation(
     "/api/posts",
     postService.createPosts,
@@ -21,7 +23,7 @@ const WriteStories = () => {
     if (description) formData["excerpt"] = description;
     if (editorRef.current) formData["content"] = editorRef.current.getContent();
     if (tag) formData["tag"] = formatTag;
-    console.log("formdata", formData);
+
     try {
       const result = await trigger(formData);
       if (result) {
@@ -30,15 +32,10 @@ const WriteStories = () => {
         editorRef.current.resetContent("");
         editorRef.current.setDirty(false);
         setTag("");
+        setErrorMsg(null);
       }
-    } catch (error) {
-      console.log("form error", error);
-    }
-
-    if (editorRef.current) {
-      // clear the editor after submit:
-      // editorRef.current.resetContent("");
-      // editorRef.current.setDirty(false);
+    } catch (err) {
+      setErrorMsg(err.errors);
     }
   };
   return (
@@ -56,6 +53,11 @@ const WriteStories = () => {
             placeholder="Enter a descriptive blog title..."
             onChange={(e) => setTitle(e.target.value)}
           />
+          {errorMsg && (
+            <p className="text-sm text-red-500">
+              {helperFunction.filterFormErrorMsg(errorMsg, "title")}
+            </p>
+          )}
         </div>
         <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
           <label htmlFor="excerpt">Short description</label>
@@ -68,10 +70,20 @@ const WriteStories = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          {errorMsg && (
+            <p className="text-sm text-red-500">
+              {helperFunction.filterFormErrorMsg(errorMsg, "excerpt")}
+            </p>
+          )}
         </div>
         <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
           <label htmlFor="content">Content</label>
           <TinyMceTextEditor editorRef={editorRef} />
+          {errorMsg && (
+            <p className="text-sm text-red-500">
+              {helperFunction.filterFormErrorMsg(errorMsg, "content")}
+            </p>
+          )}
         </div>
         <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
           <label htmlFor="tag">Tags</label>
@@ -84,6 +96,11 @@ const WriteStories = () => {
             value={tag}
             onChange={(e) => setTag(e.target.value)}
           />
+          {errorMsg && (
+            <p className="text-sm text-red-500">
+              {helperFunction.filterFormErrorMsg(errorMsg, "tag")}
+            </p>
+          )}
         </div>
         <button
           disabled={isMutating}
