@@ -1,7 +1,10 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import TinyMceTextEditor from "../../components/TinyMceTextEditor";
 const WriteStories = () => {
   const editorRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [tag, setTag] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +27,9 @@ const WriteStories = () => {
             type="text"
             name="title"
             id="title"
+            value={title}
+            placeholder="Enter a descriptive blog title..."
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
@@ -33,6 +39,9 @@ const WriteStories = () => {
             type="text"
             name="excerpt"
             id="excerpt"
+            placeholder="Provide a short summary of this post ..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
@@ -46,6 +55,9 @@ const WriteStories = () => {
             type="text"
             name="tag"
             id="tag"
+            placeholder="e.g technology, business, innovation (separated by commas)"
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
           />
         </div>
         <button
