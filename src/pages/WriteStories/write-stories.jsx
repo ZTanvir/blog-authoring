@@ -1,16 +1,41 @@
 import { useRef, useState } from "react";
 import TinyMceTextEditor from "../../components/TinyMceTextEditor";
+import useSWRMutation from "swr/mutation";
+import postService from "../../services/post";
+
 const WriteStories = () => {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
+  const { trigger, isMutating } = useSWRMutation(
+    "/api/posts",
+    postService.createPosts,
+  );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const formatTag = tag.split(",");
+    const formData = {};
+    if (title) formData["title"] = title;
+    if (description) formData["excerpt"] = description;
+    if (editorRef.current) formData["content"] = editorRef.current.getContent();
+    if (tag) formData["tag"] = formatTag;
+    console.log("formdata", formData);
+    try {
+      const result = await trigger(formData);
+      if (result) {
+        setTitle("");
+        setDescription("");
+        editorRef.current.resetContent("");
+        editorRef.current.setDirty(false);
+        setTag("");
+      }
+    } catch (error) {
+      console.log("form error", error);
+    }
+
     if (editorRef.current) {
-      let content = editorRef.current.getContent();
-      console.log(content);
       // clear the editor after submit:
       // editorRef.current.resetContent("");
       // editorRef.current.setDirty(false);
@@ -61,8 +86,9 @@ const WriteStories = () => {
           />
         </div>
         <button
+          disabled={isMutating}
           type="submit"
-          className="rounded border border-neutral-300 px-5 py-2 shadow-sm outline-gray-500 transition duration-300 hover:cursor-pointer hover:bg-gray-100 lg:self-start"
+          className="rounded border border-neutral-300 px-5 py-2 shadow-sm outline-gray-500 transition duration-300 hover:cursor-pointer hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-80 lg:self-start"
         >
           Publish
         </button>
