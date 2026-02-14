@@ -4,10 +4,13 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
 import { Link } from "react-router";
 import StoryDetails from "./StoryDetails";
+import SuccessDialog from "../../components/SuccessDialog";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 
 const Stories = () => {
   const { user } = useAuth();
   const [postStatus, setPostStatus] = useState("all");
+  const [isOpen, setIsOpen] = useState(true);
   const { data, mutate } = useSWR(
     `/api/posts/user/${user?.id}?status=${postStatus}`,
     postService.getPosts,
@@ -95,6 +98,16 @@ const Stories = () => {
           )}
         </div>
       )}
+      <SuccessDialog isOpen={isOpen} btnText="Got it">
+        <div className="flex flex-col items-center gap-2">
+          <IoIosCheckmarkCircleOutline
+            className="rounded bg-green-200 text-shadow-white"
+            color="green"
+            size="50"
+          />
+          <h3 className="text-3xl">Story Added</h3>
+        </div>
+      </SuccessDialog>
     </div>
   );
 };
