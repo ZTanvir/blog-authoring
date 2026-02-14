@@ -17,7 +17,6 @@ const Navbar = () => {
 
   const handleSubmitLogout = async (e) => {
     e.preventDefault();
-    console.log("Submit button pressed");
     const response = await authServices.logoutUser();
     if (response.status === 200) {
       setUser(null);
