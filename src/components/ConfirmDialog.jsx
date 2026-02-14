@@ -1,10 +1,14 @@
 import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 
-const SuccessDialog = ({ isOpen, children, btnText }) => {
+const ConfirmDialog = ({ isOpen, children, handleConfirm, btnText }) => {
   const dialogEl = useRef(null);
 
   const handleCloseDialog = () => {
+    dialogEl.current?.close();
+  };
+  const handleConfirmDialog = () => {
+    handleConfirm();
     dialogEl.current?.close();
   };
 
@@ -32,12 +36,18 @@ const SuccessDialog = ({ isOpen, children, btnText }) => {
       </div>
       {children}
       <button
+        className="mt-2 block w-full rounded-xl border border-gray-800 bg-red-600 p-2 text-center text-white shadow-sm transition duration-200 hover:cursor-pointer hover:bg-red-400"
+        onClick={handleConfirmDialog}
+      >
+        {btnText}
+      </button>
+      <button
         className="mt-2 block w-full rounded-xl border border-gray-800 p-2 text-center shadow-sm transition duration-200 hover:cursor-pointer hover:bg-gray-100"
         onClick={handleCloseDialog}
       >
-        {btnText}
+        Cancel
       </button>
     </dialog>
   );
 };
-export default SuccessDialog;
+export default ConfirmDialog;
