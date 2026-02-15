@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
 import postService from "../../services/post";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
@@ -13,13 +14,21 @@ const Stories = () => {
   const { user } = useAuth();
   const [postStatus, setPostStatus] = useState("all");
   const [isOpen, setIsOpen] = useState(false);
+  const [post, setPost] = useState(null);
   const { data, mutate } = useSWR(
     `/api/posts/user/${user?.id}?status=${postStatus}`,
     postService.getPosts,
   );
+  const { trigger } = useSWRMutation(
+    `/api/posts/${post?.id}`,
+    postService.deletePosts,
+  );
 
   const handleDeleteStories = () => {
-    console.log("Stories deleted");
+    trigger().then(() => {
+      // post delete correctly
+      mutate();
+    });
   };
 
   return (
@@ -59,6 +68,7 @@ const Stories = () => {
                     post={post}
                     mutatePosts={mutate}
                     setIsModalOpen={setIsOpen}
+                    setPost={setPost}
                   />
                 ))
               ) : (

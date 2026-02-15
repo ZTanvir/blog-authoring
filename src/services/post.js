@@ -22,4 +22,16 @@ const createPosts = async (url, { arg }) => {
   }
 };
 
-export default { getPosts, editPosts, createPosts };
+const deletePosts = async (url, { arg }) => {
+  try {
+    const response = await axiosApi.delete(url, arg);
+    return response.data;
+  } catch (error) {
+    if (error?.response?.data) {
+      throw error.response.data;
+    }
+    throw error;
+  }
+};
+
+export default { getPosts, editPosts, createPosts, deletePosts };

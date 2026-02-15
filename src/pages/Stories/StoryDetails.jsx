@@ -1,7 +1,7 @@
 import useSWRMutation from "swr/mutation";
 import postService from "../../services/post";
 
-const StoryDetails = ({ post, mutatePosts, setIsModalOpen }) => {
+const StoryDetails = ({ post, mutatePosts, setIsModalOpen, setPost }) => {
   const { trigger } = useSWRMutation(
     `/api/posts/${post.id}`,
     postService.editPosts,
@@ -37,7 +37,10 @@ const StoryDetails = ({ post, mutatePosts, setIsModalOpen }) => {
           {post.published ? "publish" : "unpublish"}
         </button>
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setIsModalOpen(true);
+            setPost(post);
+          }}
           className="rounded border border-red-950 bg-red-500 px-3 py-2 text-neutral-200 shadow-lg transition duration-200 hover:cursor-pointer hover:bg-red-400 md:w-30"
         >
           Delete
