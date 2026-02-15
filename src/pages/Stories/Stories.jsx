@@ -12,7 +12,7 @@ import { CiWarning } from "react-icons/ci";
 const Stories = () => {
   const { user } = useAuth();
   const [postStatus, setPostStatus] = useState("all");
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { data, mutate } = useSWR(
     `/api/posts/user/${user?.id}?status=${postStatus}`,
     postService.getPosts,
@@ -51,13 +51,14 @@ const Stories = () => {
       {data && (
         <div className="py-2">
           {postStatus === "all" && (
-            <div>
+            <div className="">
               {data.length ? (
                 data.map((post) => (
                   <StoryDetails
                     key={post.id}
                     post={post}
                     mutatePosts={mutate}
+                    setIsModalOpen={setIsOpen}
                   />
                 ))
               ) : (
@@ -117,6 +118,7 @@ const Stories = () => {
 
       <ConfirmDialog
         isOpen={isOpen}
+        setIsOpen={setIsOpen}
         handleConfirm={handleDeleteStories}
         btnText="Delete Stories"
       >
