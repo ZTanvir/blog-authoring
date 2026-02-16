@@ -1,25 +1,37 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { useParams } from "react-router";
+import useSWR from "swr";
 import WriteStoryForm from "../../components/WriteStoryForm";
 import postService from "../../services/post";
-import useSWR from "swr";
 
 const EditStoriesPage = () => {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
+  const [initialContent, setInitialContent] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
   const { postId } = useParams();
   const { data, isLoading } = useSWR(
     `/api/posts/${postId}`,
     postService.getPosts,
   );
-  console.log(data);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
   };
+  useLayoutEffect(() => {
+    if (data) {
+      setTitle(data.title);
+      setDescription(data.content);
+      setTag(data.tag);
+      setInitialContent(data.content);
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="m-2 rounded-xl border border-gray-200 px-4 py-4 shadow-sm">
@@ -29,7 +41,7 @@ const EditStoriesPage = () => {
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
-        initialValue="<p>What's on your mind?</p>"
+        initialValue={initialContent}
         editorRef={editorRef}
         tag={tag}
         setTag={setTag}
