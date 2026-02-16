@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import useSWR from "swr";
 import WriteStoryForm from "../../components/WriteStoryForm";
 import postService from "../../services/post";
+import Loading from "../../components/Loading";
 
 const EditStoriesPage = () => {
   const editorRef = useRef(null);
@@ -30,7 +31,11 @@ const EditStoriesPage = () => {
   }, [data]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Loading />
+      </div>
+    );
   }
 
   return (
