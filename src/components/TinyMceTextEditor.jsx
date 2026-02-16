@@ -1,11 +1,11 @@
 import { Editor } from "@tinymce/tinymce-react";
 
-const TinyMceTextEditor = ({ editorRef }) => {
+const TinyMceTextEditor = ({ editorRef, initialValue }) => {
   return (
     <Editor
       apiKey={import.meta.env.VITE_TINY_MCE_TEXT_EDITOR}
       onInit={(evt, editor) => (editorRef.current = editor)}
-      initialValue=""
+      initialValue={initialValue}
       init={{
         height: 500,
         menubar: false,

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import TinyMceTextEditor from "../../components/TinyMceTextEditor";
 import useSWRMutation from "swr/mutation";
 import postService from "../../services/post";
-import helperFunction from "../../utils/helperFunction";
+import WriteStoryForm from "../../components/WriteStoryForm";
 
 const WriteStories = () => {
   const editorRef = useRef(null);
@@ -40,76 +40,19 @@ const WriteStories = () => {
   };
   return (
     <div className="m-2 rounded-xl border border-gray-200 px-4 py-4 shadow-sm">
-      <form className="flex flex-col gap-4 rounded-xl" onSubmit={handleSubmit}>
-        <legend className="text-2xl">New Post</legend>
-        <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
-          <label htmlFor="title">Title</label>
-          <input
-            className="rounded-xl border border-gray-300 bg-gray-100 px-4 py-1 outline-gray-500"
-            type="text"
-            name="title"
-            id="title"
-            value={title}
-            placeholder="Enter a descriptive blog title..."
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          {errorMsg && (
-            <p className="text-sm text-red-500">
-              {helperFunction.filterFormErrorMsg(errorMsg, "title")}
-            </p>
-          )}
-        </div>
-        <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
-          <label htmlFor="excerpt">Short description</label>
-          <input
-            className="rounded-xl border border-gray-300 bg-gray-100 px-4 py-1 outline-gray-500"
-            type="text"
-            name="excerpt"
-            id="excerpt"
-            placeholder="Provide a short summary of this post ..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          {errorMsg && (
-            <p className="text-sm text-red-500">
-              {helperFunction.filterFormErrorMsg(errorMsg, "excerpt")}
-            </p>
-          )}
-        </div>
-        <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
-          <label htmlFor="content">Content</label>
-          <TinyMceTextEditor editorRef={editorRef} />
-          {errorMsg && (
-            <p className="text-sm text-red-500">
-              {helperFunction.filterFormErrorMsg(errorMsg, "content")}
-            </p>
-          )}
-        </div>
-        <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
-          <label htmlFor="tag">Tags</label>
-          <input
-            className="rounded-xl border border-gray-300 bg-gray-100 px-4 py-1 outline-gray-500"
-            type="text"
-            name="tag"
-            id="tag"
-            placeholder="e.g technology, business, innovation (separated by commas)"
-            value={tag}
-            onChange={(e) => setTag(e.target.value)}
-          />
-          {errorMsg && (
-            <p className="text-sm text-red-500">
-              {helperFunction.filterFormErrorMsg(errorMsg, "tag")}
-            </p>
-          )}
-        </div>
-        <button
-          disabled={isMutating}
-          type="submit"
-          className="rounded border border-neutral-300 px-5 py-2 shadow-sm outline-gray-500 transition duration-300 hover:cursor-pointer hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-80 lg:self-start"
-        >
-          Publish
-        </button>
-      </form>
+      <WriteStoryForm
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+        initialValue="<p>What's on your mind?</p>"
+        editorRef={editorRef}
+        tag={tag}
+        setTag={setTag}
+        isMutating={isMutating}
+        handleSubmit={handleSubmit}
+        errorMsg={errorMsg}
+      />
     </div>
   );
 };
