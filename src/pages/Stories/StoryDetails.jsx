@@ -1,5 +1,6 @@
 import useSWRMutation from "swr/mutation";
 import postService from "../../services/post";
+import { Link } from "react-router";
 
 const StoryDetails = ({ post, mutatePosts, setIsModalOpen, setPost }) => {
   const { trigger } = useSWRMutation(
@@ -45,6 +46,12 @@ const StoryDetails = ({ post, mutatePosts, setIsModalOpen, setPost }) => {
         >
           Delete
         </button>
+        <Link
+          className="rounded border border-sky-950 bg-sky-600 px-3 py-2 text-center text-neutral-200 shadow-lg transition duration-200 hover:cursor-pointer hover:bg-sky-400 md:w-30"
+          to={`/edit/${post?.id}`}
+        >
+          Edit
+        </Link>
       </div>
     </div>
   );

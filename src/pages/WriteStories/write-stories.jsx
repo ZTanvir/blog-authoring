@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import TinyMceTextEditor from "../../components/TinyMceTextEditor";
 import useSWRMutation from "swr/mutation";
 import postService from "../../services/post";
 import WriteStoryForm from "../../components/WriteStoryForm";
@@ -40,6 +39,7 @@ const WriteStories = () => {
   };
   return (
     <div className="m-2 rounded-xl border border-gray-200 px-4 py-4 shadow-sm">
+      <h2 className="mb-2 text-2xl">Write story</h2>
       <WriteStoryForm
         title={title}
         setTitle={setTitle}

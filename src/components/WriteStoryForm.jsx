@@ -16,7 +16,6 @@ const WriteStoryForm = ({
 }) => {
   return (
     <form className="flex flex-col gap-4 rounded-xl" onSubmit={handleSubmit}>
-      <legend className="text-2xl">New Post</legend>
       <div className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm">
         <label htmlFor="title">Title</label>
         <input
