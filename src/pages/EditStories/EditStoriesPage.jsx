@@ -1,6 +1,8 @@
-import WriteStoryForm from "../../components/WriteStoryForm";
 import { useState, useRef } from "react";
 import { useParams } from "react-router";
+import WriteStoryForm from "../../components/WriteStoryForm";
+import postService from "../../services/post";
+import useSWR from "swr";
 
 const EditStoriesPage = () => {
   const editorRef = useRef(null);
@@ -9,7 +11,11 @@ const EditStoriesPage = () => {
   const [tag, setTag] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
   const { postId } = useParams();
-  console.log(postId);
+  const { data, isLoading } = useSWR(
+    `/api/posts/${postId}`,
+    postService.getPosts,
+  );
+  console.log(data);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
