@@ -5,9 +5,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
 import { Link } from "react-router";
 import StoryDetails from "./StoryDetails";
-import SuccessDialog from "../../components/SuccessDialog";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { CiWarning } from "react-icons/ci";
 
 const Stories = () => {

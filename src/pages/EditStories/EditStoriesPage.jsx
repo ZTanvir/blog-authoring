@@ -7,6 +7,8 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import SuccessDialog from "../../components/SuccessDialog";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { Link } from "react-router";
+import helperFunction from "../../utils/helperFunction";
 
 const EditStoriesPage = () => {
   const editorRef = useRef(null);
@@ -52,10 +54,10 @@ const EditStoriesPage = () => {
   };
   useLayoutEffect(() => {
     if (data) {
-      setTitle(data.title);
-      setDescription(data.content);
-      setTag(data.tag.join());
-      setInitialContent(data.content);
+      setTitle(helperFunction.unsanitized(data.title));
+      setDescription(helperFunction.unsanitized(data.content));
+      setTag(helperFunction.unsanitized(data.tag.join()));
+      setInitialContent(helperFunction.unsanitized(data.content));
     }
   }, [data]);
 
