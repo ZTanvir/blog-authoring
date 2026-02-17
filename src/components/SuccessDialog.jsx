@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 
-const SuccessDialog = ({ isOpen, children, btnText }) => {
+const SuccessDialog = ({ isOpen, setIsOpen, children, btnText }) => {
   const dialogEl = useRef(null);
 
   const handleCloseDialog = () => {
     dialogEl.current?.close();
+    setIsOpen(false);
   };
 
   useEffect(() => {

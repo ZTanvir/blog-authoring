@@ -1,9 +1,12 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import { useParams } from "react-router";
-import useSWR from "swr";
 import WriteStoryForm from "../../components/WriteStoryForm";
 import postService from "../../services/post";
 import Loading from "../../components/Loading";
+import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
+import SuccessDialog from "../../components/SuccessDialog";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 
 const EditStoriesPage = () => {
   const editorRef = useRef(null);
@@ -12,20 +15,47 @@ const EditStoriesPage = () => {
   const [tag, setTag] = useState("");
   const [initialContent, setInitialContent] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const { postId } = useParams();
   const { data, isLoading } = useSWR(
-    `/api/posts/${postId}`,
+    `/api/posts/${postId}?status="any"`,
     postService.getPosts,
   );
+  const { trigger, isMutating } = useSWRMutation(
+    "/api/posts",
+    postService.createPosts,
+  );
+  console.log(data);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
+    const formatTag = tag.split(",");
+    const formData = {};
+    if (title) formData["title"] = title;
+    if (description) formData["excerpt"] = description;
+    if (editorRef.current) formData["content"] = editorRef.current.getContent();
+    if (tag) formData["tag"] = formatTag;
+
+    try {
+      const result = await trigger(formData);
+      if (result) {
+        setTitle("");
+        setDescription("");
+        editorRef.current.resetContent("");
+        editorRef.current.setDirty(false);
+        setTag("");
+        setErrorMsg(null);
+        setIsOpen(true);
+      }
+    } catch (err) {
+      setErrorMsg(err.errors);
+    }
   };
   useLayoutEffect(() => {
     if (data) {
       setTitle(data.title);
       setDescription(data.content);
-      setTag(data.tag);
+      setTag(data.tag.join());
       setInitialContent(data.content);
     }
   }, [data]);
@@ -50,10 +80,20 @@ const EditStoriesPage = () => {
         editorRef={editorRef}
         tag={tag}
         setTag={setTag}
-        isMutating={false}
+        isMutating={isMutating}
         handleSubmit={handleSubmitForm}
         errorMsg={errorMsg}
       />
+      <SuccessDialog isOpen={isOpen} setIsOpen={setIsOpen} btnText="Got it">
+        <div className="flex flex-col items-center gap-2">
+          <IoIosCheckmarkCircleOutline
+            className="rounded bg-green-200 text-shadow-white"
+            color="green"
+            size="50"
+          />
+          <h3 className="text-3xl">Story Added</h3>
+        </div>
+      </SuccessDialog>
     </div>
   );
 };
