@@ -25,7 +25,6 @@ const EditStoriesPage = () => {
     "/api/posts",
     postService.createPosts,
   );
-  console.log(data);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -91,7 +90,10 @@ const EditStoriesPage = () => {
             color="green"
             size="50"
           />
-          <h3 className="text-3xl">Story Added</h3>
+          <h3 className="text-3xl font-bold text-gray-600">Story Added</h3>
+          <Link className="text-sky-500 underline hover:cursor-pointer" to="/">
+            See all of your stories
+          </Link>
         </div>
       </SuccessDialog>
     </div>

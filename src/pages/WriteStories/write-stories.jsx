@@ -2,6 +2,9 @@ import { useRef, useState } from "react";
 import useSWRMutation from "swr/mutation";
 import postService from "../../services/post";
 import WriteStoryForm from "../../components/WriteStoryForm";
+import SuccessDialog from "../../components/SuccessDialog";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { Link } from "react-router";
 
 const WriteStories = () => {
   const editorRef = useRef(null);
@@ -9,6 +12,7 @@ const WriteStories = () => {
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const { trigger, isMutating } = useSWRMutation(
     "/api/posts",
     postService.createPosts,
@@ -32,6 +36,7 @@ const WriteStories = () => {
         editorRef.current.setDirty(false);
         setTag("");
         setErrorMsg(null);
+        setIsOpen(true);
       }
     } catch (err) {
       setErrorMsg(err.errors);
@@ -53,6 +58,22 @@ const WriteStories = () => {
         handleSubmit={handleSubmit}
         errorMsg={errorMsg}
       />
+      <SuccessDialog isOpen={isOpen} setIsOpen={setIsOpen} btnText="Got it">
+        <div className="flex flex-col items-center gap-2">
+          <IoIosCheckmarkCircleOutline
+            className="rounded bg-green-200 text-shadow-white"
+            color="green"
+            size="50"
+          />
+          <h3 className="text-3xl font-bold text-gray-600">Story Added</h3>
+          <Link
+            className="text-sky-500 underline hover:cursor-pointer"
+            to="/stories"
+          >
+            See all of your stories
+          </Link>
+        </div>
+      </SuccessDialog>
     </div>
   );
 };

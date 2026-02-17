@@ -115,16 +115,6 @@ const Stories = () => {
           )}
         </div>
       )}
-      {/* <SuccessDialog isOpen={isOpen} btnText="Got it">
-        <div className="flex flex-col items-center gap-2">
-          <IoIosCheckmarkCircleOutline
-            className="rounded bg-green-200 text-shadow-white"
-            color="green"
-            size="50"
-          />
-          <h3 className="text-3xl">Story Added</h3>
-        </div>
-      </SuccessDialog> */}
 
       <ConfirmDialog
         isOpen={isOpen}
