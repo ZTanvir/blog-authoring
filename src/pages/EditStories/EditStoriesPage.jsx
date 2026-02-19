@@ -23,9 +23,10 @@ const EditStoriesPage = () => {
     `/api/posts/${postId}?status="any"`,
     postService.getPosts,
   );
+
   const { trigger, isMutating } = useSWRMutation(
-    "/api/posts",
-    postService.createPosts,
+    `/api/posts/${postId}`,
+    postService.editPosts,
   );
 
   const handleSubmitForm = async (e) => {
@@ -55,7 +56,7 @@ const EditStoriesPage = () => {
   useLayoutEffect(() => {
     if (data) {
       setTitle(helperFunction.unsanitized(data.title));
-      setDescription(helperFunction.unsanitized(data.content));
+      setDescription(helperFunction.unsanitized(data.excerpt));
       setTag(helperFunction.unsanitized(data.tag.join()));
       setInitialContent(helperFunction.unsanitized(data.content));
     }
