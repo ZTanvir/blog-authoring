@@ -7,7 +7,7 @@ const BlogLayout = () => {
       <header className="sticky top-0 bg-gray-900">
         <Navbar />
       </header>
-      <main className="flex-1">
+      <main className="flex-1 px-2 pt-4">
         <Outlet />
       </main>
     </div>
