@@ -7,6 +7,7 @@ import { Link } from "react-router";
 import StoryDetails from "./StoryDetails";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { CiWarning } from "react-icons/ci";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 const Stories = () => {
   const { user } = useAuth();
@@ -71,9 +72,15 @@ const Stories = () => {
                 ))
               ) : (
                 <div>
-                  <p>No stories found.</p>
-                  <Link className="text-sky-600 hover:text-sky-400" to="/write">
-                    Write your first story.
+                  <p className="text-sm">No stories found.</p>
+                  <Link
+                    className="flex items-center space-x-2 text-sky-600 hover:text-sky-400"
+                    to="/write"
+                  >
+                    <span> Write your first story from here</span>
+                    <span>
+                      <FaLongArrowAltRight />
+                    </span>
                   </Link>
                 </div>
               )}
