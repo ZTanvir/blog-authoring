@@ -81,12 +81,12 @@ const Stories = () => {
           )}
 
           {postStatus === "published" && (
-            <div>
+            <div className="flex flex-col space-y-2">
               {data.length ? (
                 data.map((post) => (
                   <Link
                     key={post.id}
-                    className="pb-2 text-sky-600 hover:text-sky-500"
+                    className="text-sky-600 hover:text-sky-500"
                     to={`http://localhost:5174/posts/${post.id}`}
                   >
                     {post.title}
