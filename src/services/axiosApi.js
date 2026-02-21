@@ -33,7 +33,7 @@ axiosApi.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const { accessToken: newToken } = await authServices.refreshToken(
-          "api/auth/refresh",
+          "api/auth/author/refresh",
           {},
         );
         setStoredAuthToken(newToken);

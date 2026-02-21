@@ -98,7 +98,7 @@ const LoginPage = () => {
 
         <p className="text-center">
           <span className="text-sky-600">
-            <a href="/register">Return to main site</a>
+            <a href="http://localhost:5173">Return to main site</a>
           </span>
         </p>
       </form>
