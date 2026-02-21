@@ -73,7 +73,6 @@ const Navbar = () => {
                   <div className="absolute hidden w-full rounded bg-gray-800 p-2 text-white group-hover:block group-hover:cursor-pointer">
                     <form onSubmit={handleSubmitLogout} className="text-center">
                       <button
-                        onClick={() => console.log("button clicked")}
                         className="w-full hover:cursor-pointer"
                         type="submit"
                       >

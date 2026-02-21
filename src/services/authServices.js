@@ -11,7 +11,7 @@ const loginUser = async (url, { arg }) => {
 };
 
 const logoutUser = async () => {
-  const response = await axiosApi.post("api/auth/logout");
+  const response = await axiosApi.post("api/auth/author/logout");
   return response;
 };
 

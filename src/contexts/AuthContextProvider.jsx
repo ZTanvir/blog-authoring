@@ -8,7 +8,7 @@ const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const { trigger } = useSWRMutation(
-    "api/auth/refresh",
+    "api/auth/author/refresh",
     authServices.refreshToken,
   );
   useEffect(() => {
