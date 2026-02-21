@@ -33,7 +33,7 @@ const Stories = () => {
   return (
     <div>
       <h1 className="text-3xl sm:text-5xl">Hello, {user?.username}</h1>
-      <p className="py-2 text-xl">Here are your stories</p>
+      <p className="mb-5 py-2 text-xl">Here are your stories</p>
 
       <div className="flex space-x-2 text-2xl text-gray-700">
         <button

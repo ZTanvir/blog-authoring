@@ -10,7 +10,7 @@ const StoryDetails = ({ post, mutatePosts, setIsModalOpen, setPost }) => {
 
   return (
     <div className="mb-8 flex flex-col gap-2 md:flex-row" key={post.id}>
-      <span className="text-xl">{post.title}</span>
+      <span>{post.title}</span>
       <div className="flex flex-col gap-2 md:flex-row">
         <button
           onMouseEnter={(e) => {

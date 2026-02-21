@@ -32,7 +32,7 @@ const Navbar = () => {
         <div className="flex items-center text-lg">
           <div className="mr-auto flex text-4xl">
             <NavLink
-              to="/"
+              to="http://localhost:5173"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <div className="flex font-bold text-sky-400">
