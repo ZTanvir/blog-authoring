@@ -69,10 +69,10 @@ const Navbar = () => {
                   <span className="flex items-center font-bold text-gray-300">
                     Welcome, {userName} <IoIosArrowDown size={15} />
                   </span>
-                  <div className="absolute hidden w-full rounded bg-gray-800 p-2 text-white group-hover:block group-hover:cursor-pointer">
+                  <div className="absolute hidden w-full overflow-hidden rounded bg-gray-800 text-white group-hover:block">
                     <form onSubmit={handleSubmitLogout} className="text-center">
                       <button
-                        className="w-full hover:cursor-pointer"
+                        className="w-full p-2 group-hover:cursor-pointer hover:cursor-pointer hover:bg-sky-600"
                         type="submit"
                       >
                         Logout
