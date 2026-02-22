@@ -94,7 +94,7 @@ const Stories = () => {
                   <Link
                     key={post.id}
                     className="text-sky-600 hover:text-sky-500"
-                    to={`http://localhost:5174/posts/${post.id}`}
+                    to={`${import.meta.env.VITE_HOME_WEBPAGE_URL}/posts/${post.id}`}
                   >
                     {post.title}
                   </Link>

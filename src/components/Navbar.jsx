@@ -6,7 +6,6 @@ import authServices from "../services/authServices";
 import { useNavigate } from "react-router";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuPenLine } from "react-icons/lu";
-
 import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
@@ -32,7 +31,7 @@ const Navbar = () => {
         <div className="flex items-center text-lg">
           <div className="mr-auto flex text-4xl">
             <NavLink
-              to="http://localhost:5173"
+              to={import.meta.env.VITE_BLOG_API_URL}
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <div className="flex font-bold text-sky-400">
