@@ -32,8 +32,8 @@ const Stories = () => {
 
   return (
     <div>
-      <section className="rounded-xl border border-gray-300 p-4">
-        <h1 className="text-3xl sm:text-5xl">Welcome back, {user?.username}</h1>
+      <section className="mb-4 rounded-xl border border-gray-300 p-4">
+        <h1 className="text-2xl sm:text-4xl">Welcome back, {user?.username}</h1>
         <p className="mt-1 text-xl">
           Manage your blog posts below. You can publish, edit, or delete your
           posts.
@@ -46,19 +46,21 @@ const Stories = () => {
             className={`m-1 flex-1 rounded-xl p-1 transition-colors duration-200 hover:cursor-pointer ${postStatus === "all" ? "bg-white" : "bg-none"}`}
             onClick={() => setPostStatus("all")}
           >
-            All
+            All {postStatus === "all" && <span>({data?.length})</span>}
           </button>
           <button
             className={`m-1 flex-1 rounded-xl p-1 transition-colors duration-200 hover:cursor-pointer ${postStatus === "published" ? "bg-white" : "bg-none"}`}
             onClick={() => setPostStatus("published")}
           >
-            Published
+            Published{" "}
+            {postStatus === "published" && <span>({data?.length})</span>}
           </button>
           <button
             className={`m-1 flex-1 rounded-xl p-1 transition-colors duration-200 hover:cursor-pointer ${postStatus === "unpublished" ? "bg-white" : "bg-none"}`}
             onClick={() => setPostStatus("unpublished")}
           >
-            Unpublished
+            Unpublished{" "}
+            {postStatus === "unpublished" && <span>({data?.length})</span>}
           </button>
         </div>
 
@@ -66,6 +68,7 @@ const Stories = () => {
           <div className="py-2">
             {postStatus === "all" && (
               <div className="">
+                <h2 className="my-4 text-2xl font-bold">All stories</h2>
                 {data.length ? (
                   data.map((post) => (
                     <StoryDetails
