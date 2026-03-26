@@ -32,94 +32,101 @@ const Stories = () => {
 
   return (
     <div>
-      <h1 className="text-3xl sm:text-5xl">Hello, {user?.username}</h1>
-      <p className="mb-5 py-2 text-xl">Here are your stories</p>
+      <section className="rounded-xl border border-gray-300 p-4">
+        <h1 className="text-3xl sm:text-5xl">Welcome back, {user?.username}</h1>
+        <p className="mt-1 text-xl">
+          Manage your blog posts below. You can publish, edit, or delete your
+          posts.
+        </p>
+      </section>
 
-      <div className="flex space-x-2 text-2xl text-gray-700">
-        <button
-          className={`border-b-2 transition-colors duration-200 hover:cursor-pointer ${postStatus === "all" ? "border-b-gray-600" : "border-b-transparent"}`}
-          onClick={() => setPostStatus("all")}
-        >
-          All
-        </button>
-        <button
-          className={`border-b-2 transition-colors duration-200 hover:cursor-pointer ${postStatus === "published" ? "border-b-gray-600" : "border-b-transparent"}`}
-          onClick={() => setPostStatus("published")}
-        >
-          Published
-        </button>
-        <button
-          className={`border-b-2 transition-colors duration-200 hover:cursor-pointer ${postStatus === "unpublished" ? "border-b-gray-600" : "border-b-transparent"}`}
-          onClick={() => setPostStatus("unpublished")}
-        >
-          Unpublished
-        </button>
-      </div>
-
-      {data && (
-        <div className="py-2">
-          {postStatus === "all" && (
-            <div className="">
-              {data.length ? (
-                data.map((post) => (
-                  <StoryDetails
-                    key={post.id}
-                    post={post}
-                    mutatePosts={mutate}
-                    setIsModalOpen={setIsOpen}
-                    setPost={setPost}
-                  />
-                ))
-              ) : (
-                <div>
-                  <p className="text-sm">No stories found.</p>
-                  <Link
-                    className="flex items-center space-x-2 text-sky-600 hover:text-sky-400"
-                    to="/write"
-                  >
-                    <span> Write your first story from here</span>
-                    <span>
-                      <FaLongArrowAltRight />
-                    </span>
-                  </Link>
-                </div>
-              )}
-            </div>
-          )}
-
-          {postStatus === "published" && (
-            <div className="flex flex-col space-y-2">
-              {data.length ? (
-                data.map((post) => (
-                  <Link
-                    key={post.id}
-                    className="text-sky-600 hover:text-sky-500"
-                    to={`${import.meta.env.VITE_HOME_WEBPAGE_URL}/posts/${post.id}`}
-                  >
-                    {post.title}
-                  </Link>
-                ))
-              ) : (
-                <p>No published stories.</p>
-              )}
-            </div>
-          )}
-
-          {postStatus === "unpublished" && (
-            <div>
-              {data.length ? (
-                data.map((post) => (
-                  <div key={post.id} className="pb-2">
-                    {post.title}
-                  </div>
-                ))
-              ) : (
-                <p>No unpublished stories.</p>
-              )}
-            </div>
-          )}
+      <div className="rounded-xl border border-gray-300 p-4">
+        <div className="flex space-x-2 rounded-xl bg-gray-200 font-bold text-gray-700">
+          <button
+            className={`m-1 flex-1 rounded-xl p-1 transition-colors duration-200 hover:cursor-pointer ${postStatus === "all" ? "bg-white" : "bg-none"}`}
+            onClick={() => setPostStatus("all")}
+          >
+            All
+          </button>
+          <button
+            className={`m-1 flex-1 rounded-xl p-1 transition-colors duration-200 hover:cursor-pointer ${postStatus === "published" ? "bg-white" : "bg-none"}`}
+            onClick={() => setPostStatus("published")}
+          >
+            Published
+          </button>
+          <button
+            className={`m-1 flex-1 rounded-xl p-1 transition-colors duration-200 hover:cursor-pointer ${postStatus === "unpublished" ? "bg-white" : "bg-none"}`}
+            onClick={() => setPostStatus("unpublished")}
+          >
+            Unpublished
+          </button>
         </div>
-      )}
+
+        {data && (
+          <div className="py-2">
+            {postStatus === "all" && (
+              <div className="">
+                {data.length ? (
+                  data.map((post) => (
+                    <StoryDetails
+                      key={post.id}
+                      post={post}
+                      mutatePosts={mutate}
+                      setIsModalOpen={setIsOpen}
+                      setPost={setPost}
+                    />
+                  ))
+                ) : (
+                  <div>
+                    <p className="text-sm">No stories found.</p>
+                    <Link
+                      className="flex items-center space-x-2 text-sky-600 hover:text-sky-400"
+                      to="/write"
+                    >
+                      <span> Write your first story from here</span>
+                      <span>
+                        <FaLongArrowAltRight />
+                      </span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {postStatus === "published" && (
+              <div className="flex flex-col space-y-2">
+                {data.length ? (
+                  data.map((post) => (
+                    <Link
+                      key={post.id}
+                      className="text-sky-600 hover:text-sky-500"
+                      to={`${import.meta.env.VITE_HOME_WEBPAGE_URL}/posts/${post.id}`}
+                    >
+                      {post.title}
+                    </Link>
+                  ))
+                ) : (
+                  <p>No published stories.</p>
+                )}
+              </div>
+            )}
+
+            {postStatus === "unpublished" && (
+              <div>
+                {data.length ? (
+                  data.map((post) => (
+                    <div key={post.id} className="pb-2">
+                      {post.title}
+                    </div>
+                  ))
+                ) : (
+                  <p>No unpublished stories.</p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       <ConfirmDialog
         isOpen={isOpen}
