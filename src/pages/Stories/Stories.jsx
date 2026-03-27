@@ -99,15 +99,18 @@ const Stories = () => {
             {postStatus === "published" && (
               <div className="flex flex-col space-y-2">
                 {data.length ? (
-                  data.map((post) => (
-                    <Link
-                      key={post.id}
-                      className="text-sky-600 hover:text-sky-500"
-                      to={`${import.meta.env.VITE_HOME_WEBPAGE_URL}/posts/${post.id}`}
-                    >
-                      {post.title}
-                    </Link>
-                  ))
+                  <div>
+                    <h2 className="my-4 text-2xl font-bold">Published</h2>
+                    {data.map((post) => (
+                      <Link
+                        key={post.id}
+                        className="text-sky-600 hover:text-sky-500"
+                        to={`${import.meta.env.VITE_HOME_WEBPAGE_URL}/posts/${post.id}`}
+                      >
+                        {post.title}
+                      </Link>
+                    ))}
+                  </div>
                 ) : (
                   <p>No published stories.</p>
                 )}
@@ -117,11 +120,15 @@ const Stories = () => {
             {postStatus === "unpublished" && (
               <div>
                 {data.length ? (
-                  data.map((post) => (
-                    <div key={post.id} className="pb-2">
-                      {post.title}
-                    </div>
-                  ))
+                  <div>
+                    <h2 className="my-4 text-2xl font-bold">Unpublished</h2>
+
+                    {data.map((post) => (
+                      <div key={post.id} className="pb-2">
+                        {post.title}
+                      </div>
+                    ))}
+                  </div>
                 ) : (
                   <p>No unpublished stories.</p>
                 )}

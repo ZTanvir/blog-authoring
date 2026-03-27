@@ -40,7 +40,7 @@ const StoryDetails = ({ post, mutatePosts, setIsModalOpen, setPost }) => {
           }}
           className={`rounded-xl border border-gray-300 py-1 ${post.published ? "bg-neutral-100 hover:bg-neutral-50" : "bg-gray-900/80 text-white hover:bg-gray-900/50"} text-gray-800 shadow-lg transition duration-200 hover:cursor-pointer md:w-30`}
         >
-          <span className="flex items-center justify-center">
+          <span className="flex items-center justify-center gap-1">
             <MdOutlinePublish />
             {post.published ? "publish" : "unpublish"}
           </span>
@@ -52,7 +52,7 @@ const StoryDetails = ({ post, mutatePosts, setIsModalOpen, setPost }) => {
           }}
           className="rounded-xl border border-gray-300 bg-neutral-100 py-1 text-gray-800 shadow-lg transition duration-200 hover:cursor-pointer hover:bg-neutral-50 md:w-30"
         >
-          <span className="flex items-center justify-center">
+          <span className="flex items-center justify-center gap-1">
             <MdOutlineDeleteOutline />
             Delete
           </span>
@@ -61,7 +61,7 @@ const StoryDetails = ({ post, mutatePosts, setIsModalOpen, setPost }) => {
           className="rounded-xl border border-gray-300 bg-neutral-100 py-1 text-gray-800 shadow-lg transition duration-200 hover:cursor-pointer hover:bg-neutral-50 md:w-30"
           to={`/edit/${post?.id}`}
         >
-          <span className="flex items-center justify-center">
+          <span className="flex items-center justify-center gap-1">
             <CiEdit />
             Edit
           </span>
