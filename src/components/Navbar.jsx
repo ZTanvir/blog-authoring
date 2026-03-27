@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className="flex items-center text-lg">
           <div className="mr-auto flex text-4xl">
             <NavLink
-              to={import.meta.env.VITE_BLOG_API_URL}
+              to={import.meta.env.VITE_HOME_WEBPAGE_URL}
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <div className="flex font-bold text-sky-400">
