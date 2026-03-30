@@ -69,16 +69,19 @@ const Stories = () => {
             {postStatus === "all" && (
               <div className="">
                 <h2 className="my-4 text-2xl font-bold">All stories</h2>
+
                 {data.length ? (
-                  data.map((post) => (
-                    <StoryDetails
-                      key={post.id}
-                      post={post}
-                      mutatePosts={mutate}
-                      setIsModalOpen={setIsOpen}
-                      setPost={setPost}
-                    />
-                  ))
+                  <div className="space-y-4">
+                    {data.map((post) => (
+                      <StoryDetails
+                        key={post.id}
+                        post={post}
+                        mutatePosts={mutate}
+                        setIsModalOpen={setIsOpen}
+                        setPost={setPost}
+                      />
+                    ))}
+                  </div>
                 ) : (
                   <div>
                     <p className="text-sm">No stories found.</p>
@@ -101,15 +104,19 @@ const Stories = () => {
                 {data.length ? (
                   <div>
                     <h2 className="my-4 text-2xl font-bold">Published</h2>
-                    {data.map((post) => (
-                      <Link
-                        key={post.id}
-                        className="text-sky-600 hover:text-sky-500"
-                        to={`${import.meta.env.VITE_HOME_WEBPAGE_URL}/posts/${post.id}`}
-                      >
-                        {post.title}
-                      </Link>
-                    ))}
+                    <ul className="space-y-2">
+                      {data.map((post) => (
+                        <li>
+                          <Link
+                            key={post.id}
+                            className="text-sky-600 hover:text-sky-500"
+                            to={`${import.meta.env.VITE_HOME_WEBPAGE_URL}/posts/${post.id}`}
+                          >
+                            {post.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 ) : (
                   <p>No published stories.</p>
